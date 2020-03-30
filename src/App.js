@@ -1,6 +1,8 @@
-import React, { Component } from 'react';
+import React, { useState} from 'react';
 import logo from './logo.svg';
 import './App.css';
+import AddUser from './components/addUser';
+import UserList from './components/userList';
 
 /*
 This exercise will help you put together and practice all of the concepts you've
@@ -10,54 +12,26 @@ React and prepare you for your first project.
 The instructions for this project are located in the `instructions.md` file.
 */
 
-class App extends Component {
-  
-  state={
-    firstName:'',
-     lastName:[],
-     userName:[]
-  }
+const App=()=>{
 
-handleAdd=(e)=>{
- 
-  this.setState({
-    firstName:[...this.state.firstName,e.target.value]
-  
-  })
-}
-handleChange=(e)=>{
- 
-  this.setState({
-    firstName: e.target.value 
-  
-  })
-}
-handleSubmit=(e)=>{
-   e.preventDefault();
-  this.setState({
-    firstName:e.target.value
-  
-  })
-
-}
-  
-  render() {
+ const [users, setusers] = useState([]);
+ const addUser=(user)=>{
+   console.log(user)
+  setusers([...users,user])
+ }
     return (
-      <div className="App">
+      <div >
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">ReactND - Coding Practice</h1>
         </header>
-        <form onSubmit={this.handleSubmit}>
-			<input  type="text" value={this.state.firstName} placeholder="Enter first name" onChange={this.handleChange}/>
-			
-			<button > Add</button>
-
-		</form>
-		<p>{this.state.firstName}</p>
+        
+        <AddUser users={users} onAdding={addUser} />
+        <UserList   users={users}/>
+        
       </div>
     );
-  }
+  
 }
 
 export default App;
